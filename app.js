@@ -12,11 +12,16 @@ const initializeServer = async () => {
       filename: dbpath,
       driver: sqlite3.Database,
     });
-    app.listen(3003, () => {
-      console.log("The Server is running at http://localhost:3003");
+    app.listen(4003, () => {
+      console.log("The Server is running at http://localhost:4003");
     });
   } catch (e) {
     console.log(e.message);
   }
 };
 initializeServer();
+app.get("/todos/", async (request, response) => {
+  const GetQuery = `Select * FROM todo`;
+  const dbresponse = await db.all(GetQuery);
+  response.send(dbresponse);
+});
